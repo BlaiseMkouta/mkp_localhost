@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-    id              String @id @default(uuid())
+    id              String  @id @default(uuid())
     first_name      String
     last_name       String
-    email           String @unique
-    phone_number    String @unique
+    email           String  @unique
+    phone_number    String  @unique
     password        String
-    profile_picture String
+    profile_picture String?
+    isVerified      Boolean @default(false)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
