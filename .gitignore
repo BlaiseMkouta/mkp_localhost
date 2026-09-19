@@ -1,0 +1,20 @@
+# Dépendances
+node_modules/
+# Code compilé
+dist/
+*.tsbuildinfo
+# Variables d'environnement (contient des mots de passe !)
+.env
+.env.local
+# Sauvegardes de base de données
+*.sql.bak
+*.dump
+# Logs
+*.log
+npm-debug.log*
+# Système
+.DS_Store
+Thumbs.db
+# Éditeurs
+.vscode/
+.idea/
