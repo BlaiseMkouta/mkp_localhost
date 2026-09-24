@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "otpExpiredAt" SET DATA TYPE TEXT;

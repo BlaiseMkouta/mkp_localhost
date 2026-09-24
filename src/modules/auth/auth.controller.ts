@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import prisma from "../../config/prisma";
 import { success } from "zod";
+import { generateSecret } from "otplib";
+import { generateOpt } from "../../utils/otp";
+import { otpMethod } from "../../generated/prisma/enums";
 const bcrypt = require("bcrypt");
 
 export const register = async (
@@ -38,9 +41,14 @@ export const register = async (
     }
 
     //hachage du mot de passe
-    const hashedPassword = bcrypt.hash(password, saltround);
+    const hashedPassword = await bcrypt.hash(password, saltround);
 
     //TODO: generer l'opt avec otpLib
+    const secret = generateSecret();
+
+    const otp = await generateOpt(secret);
+    const hashedOtp = await bcrypt.hash(otp, saltround);
+    const otpExpiredAt = String(new Date().getTime() + 600);
 
     const newUser = await prisma.user.create({
       data: {
@@ -49,13 +57,21 @@ export const register = async (
         email,
         phone_number,
         password: hashedPassword,
+        otpSecret: hashedOtp,
+        otpMethod: otpMethod.VERIFY_EMAIL,
+        otpExpiredAt: otpExpiredAt,
       },
     });
 
     return res.status(201).json({
       success: true,
       message: "user created successfully",
-      data: newUser,
+      data: {
+        id: newUser.id,
+        first_name: newUser.first_name,
+        last_name: newUser.last_name,
+        email: newUser.email,
+      },
     });
   } catch (error) {
     next(error);

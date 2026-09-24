@@ -49,6 +49,13 @@ export type BoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type EnumotpMethodNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.otpMethod | Prisma.EnumotpMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumotpMethodNullableFilter<$PrismaModel> | $Enums.otpMethod | null
+}
+
 export type DateTimeFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -109,6 +116,16 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
+export type EnumotpMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.otpMethod | Prisma.EnumotpMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumotpMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.otpMethod | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumotpMethodNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumotpMethodNullableFilter<$PrismaModel>
+}
+
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -154,6 +171,13 @@ export type NestedStringNullableFilter<$PrismaModel = never> = {
 export type NestedBoolFilter<$PrismaModel = never> = {
   equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type NestedEnumotpMethodNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.otpMethod | Prisma.EnumotpMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumotpMethodNullableFilter<$PrismaModel> | $Enums.otpMethod | null
 }
 
 export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -229,6 +253,16 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumotpMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.otpMethod | Prisma.EnumotpMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.otpMethod[] | Prisma.ListEnumotpMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumotpMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.otpMethod | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumotpMethodNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumotpMethodNullableFilter<$PrismaModel>
 }
 
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {

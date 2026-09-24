@@ -1,7 +1,11 @@
 import express, { Application } from "express";
+import authRoutes from "./modules/auth/auth.routes";
 
 const app: Application = express();
 
 app.use(express.json());
 
-export default app
+// Routing
+app.use(authRoutes);
+
+export default app;

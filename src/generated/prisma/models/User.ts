@@ -33,6 +33,9 @@ export type UserMinAggregateOutputType = {
   password: string | null
   profile_picture: string | null
   isVerified: boolean | null
+  otpSecret: string | null
+  otpMethod: $Enums.otpMethod | null
+  otpExpiredAt: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +49,9 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   profile_picture: string | null
   isVerified: boolean | null
+  otpSecret: string | null
+  otpMethod: $Enums.otpMethod | null
+  otpExpiredAt: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +65,9 @@ export type UserCountAggregateOutputType = {
   password: number
   profile_picture: number
   isVerified: number
+  otpSecret: number
+  otpMethod: number
+  otpExpiredAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +83,9 @@ export type UserMinAggregateInputType = {
   password?: true
   profile_picture?: true
   isVerified?: true
+  otpSecret?: true
+  otpMethod?: true
+  otpExpiredAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +99,9 @@ export type UserMaxAggregateInputType = {
   password?: true
   profile_picture?: true
   isVerified?: true
+  otpSecret?: true
+  otpMethod?: true
+  otpExpiredAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +115,9 @@ export type UserCountAggregateInputType = {
   password?: true
   profile_picture?: true
   isVerified?: true
+  otpSecret?: true
+  otpMethod?: true
+  otpExpiredAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +204,9 @@ export type UserGroupByOutputType = {
   password: string
   profile_picture: string | null
   isVerified: boolean
+  otpSecret: string | null
+  otpMethod: $Enums.otpMethod | null
+  otpExpiredAt: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -220,6 +241,9 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   profile_picture?: Prisma.StringNullableFilter<"User"> | string | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  otpSecret?: Prisma.StringNullableFilter<"User"> | string | null
+  otpMethod?: Prisma.EnumotpMethodNullableFilter<"User"> | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
@@ -233,6 +257,9 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   profile_picture?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  otpSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpExpiredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -249,6 +276,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   profile_picture?: Prisma.StringNullableFilter<"User"> | string | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  otpSecret?: Prisma.StringNullableFilter<"User"> | string | null
+  otpMethod?: Prisma.EnumotpMethodNullableFilter<"User"> | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }, "id" | "email" | "phone_number">
@@ -262,6 +292,9 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   profile_picture?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  otpSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpExpiredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -281,6 +314,9 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   profile_picture?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  otpSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  otpMethod?: Prisma.EnumotpMethodNullableWithAggregatesFilter<"User"> | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -294,6 +330,9 @@ export type UserCreateInput = {
   password: string
   profile_picture?: string | null
   isVerified?: boolean
+  otpSecret?: string | null
+  otpMethod?: $Enums.otpMethod | null
+  otpExpiredAt?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -307,6 +346,9 @@ export type UserUncheckedCreateInput = {
   password: string
   profile_picture?: string | null
   isVerified?: boolean
+  otpSecret?: string | null
+  otpMethod?: $Enums.otpMethod | null
+  otpExpiredAt?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -320,6 +362,9 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -333,6 +378,9 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -346,6 +394,9 @@ export type UserCreateManyInput = {
   password: string
   profile_picture?: string | null
   isVerified?: boolean
+  otpSecret?: string | null
+  otpMethod?: $Enums.otpMethod | null
+  otpExpiredAt?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -359,6 +410,9 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -372,6 +426,9 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
+  otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -385,6 +442,9 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   profile_picture?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  otpSecret?: Prisma.SortOrder
+  otpMethod?: Prisma.SortOrder
+  otpExpiredAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -398,6 +458,9 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   profile_picture?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  otpSecret?: Prisma.SortOrder
+  otpMethod?: Prisma.SortOrder
+  otpExpiredAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -411,6 +474,9 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   profile_picture?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  otpSecret?: Prisma.SortOrder
+  otpMethod?: Prisma.SortOrder
+  otpExpiredAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -425,6 +491,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableEnumotpMethodFieldUpdateOperationsInput = {
+  set?: $Enums.otpMethod | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -442,6 +512,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   profile_picture?: boolean
   isVerified?: boolean
+  otpSecret?: boolean
+  otpMethod?: boolean
+  otpExpiredAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -455,6 +528,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   profile_picture?: boolean
   isVerified?: boolean
+  otpSecret?: boolean
+  otpMethod?: boolean
+  otpExpiredAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -468,6 +544,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   profile_picture?: boolean
   isVerified?: boolean
+  otpSecret?: boolean
+  otpMethod?: boolean
+  otpExpiredAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -481,11 +560,14 @@ export type UserSelectScalar = {
   password?: boolean
   profile_picture?: boolean
   isVerified?: boolean
+  otpSecret?: boolean
+  otpMethod?: boolean
+  otpExpiredAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "email" | "phone_number" | "password" | "profile_picture" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "email" | "phone_number" | "password" | "profile_picture" | "isVerified" | "otpSecret" | "otpMethod" | "otpExpiredAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
@@ -499,6 +581,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     profile_picture: string | null
     isVerified: boolean
+    otpSecret: string | null
+    otpMethod: $Enums.otpMethod | null
+    otpExpiredAt: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -932,6 +1017,9 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly profile_picture: Prisma.FieldRef<"User", 'String'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly otpSecret: Prisma.FieldRef<"User", 'String'>
+  readonly otpMethod: Prisma.FieldRef<"User", 'otpMethod'>
+  readonly otpExpiredAt: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

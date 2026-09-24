@@ -9,7 +9,10 @@
 * 🟢 You can import this file directly.
 */
 
+export const otpMethod = {
+  LOGIN: 'LOGIN',
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  VERIFY_EMAIL: 'VERIFY_EMAIL'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type otpMethod = (typeof otpMethod)[keyof typeof otpMethod]

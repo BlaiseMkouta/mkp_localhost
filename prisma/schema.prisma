@@ -7,15 +7,24 @@ datasource db {
     provider = "postgresql"
 }
 
+enum otpMethod {
+    LOGIN
+    RESET_PASSWORD
+    VERIFY_EMAIL
+}
+
 model User {
-    id              String  @id @default(uuid())
+    id              String     @id @default(uuid())
     first_name      String
     last_name       String
-    email           String  @unique
-    phone_number    String  @unique
+    email           String     @unique
+    phone_number    String     @unique
     password        String
     profile_picture String?
-    isVerified      Boolean @default(false)
+    isVerified      Boolean    @default(false)
+    otpSecret       String?
+    otpMethod       otpMethod?
+    otpExpiredAt    String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
