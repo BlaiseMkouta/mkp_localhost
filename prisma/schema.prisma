@@ -25,6 +25,7 @@ model User {
     otpSecret       String?
     otpMethod       otpMethod?
     otpExpiredAt    String?
+    refreshToken    String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

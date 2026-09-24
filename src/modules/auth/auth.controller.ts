@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import prisma from "../../config/prisma";
-import { success } from "zod";
 import { generateSecret } from "otplib";
 import { generateOpt } from "../../utils/otp";
 import { otpMethod } from "../../generated/prisma/enums";
+import { signAccessToken, signRefreshToken } from "../../utils/jwt";
 const bcrypt = require("bcrypt");
 
 export const register = async (
@@ -77,3 +77,69 @@ export const register = async (
     next(error);
   }
 };
+
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { email, password } = req.body;
+
+  // Verifions le mail en base de donnee
+  const existingUser = await prisma.user.findFirst({
+    where: { email },
+  });
+
+  if (!existingUser) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid credentials",
+    });
+  }
+
+  // Verifier le mot de passe
+  const isPasswordValid = await bcrypt.compare(
+    password,
+    existingUser?.password,
+  );
+
+  if (!isPasswordValid) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid credentials",
+    });
+  }
+
+  const accessToken = signAccessToken(existingUser.id);
+  const resfreshToken = signRefreshToken(existingUser.id);
+
+  // hachage du refresh token
+  const hashRefresh = await bcrypt.hash(refreshToken, 10);
+
+  // stocker le refresh en bd
+  await prisma.user.update({
+    where: { id: existingUser.id },
+    data: { refreshToken: hashRefresh },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "login successfull",
+    datas: {
+      access_token: accessToken,
+      refresh_token: resfreshToken,
+    },
+  });
+};
+
+export const refreshToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {};
+
+export const verifyOtp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {};
