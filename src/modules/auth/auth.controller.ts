@@ -4,6 +4,8 @@ import { generateSecret } from "otplib";
 import { generateOpt } from "../../utils/otp";
 import { otpMethod } from "../../generated/prisma/enums";
 import { signAccessToken, signRefreshToken } from "../../utils/jwt";
+import { id } from "zod/v4/locales";
+import { success } from "zod";
 const bcrypt = require("bcrypt");
 
 export const register = async (
@@ -128,6 +130,12 @@ export const login = async (
     datas: {
       access_token: accessToken,
       refresh_token: resfreshToken,
+      user: {
+        id: existingUser.id,
+        first_name: existingUser.first_name,
+        last_name: existingUser.last_name,
+        profile_picture: existingUser.profile_picture,
+      },
     },
   });
 };
@@ -136,7 +144,55 @@ export const refreshToken = async (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {};
+) => {
+  const id = req.params;
+  const refreshToken = req.body;
+
+  // Verifie l'utilisateur
+  const user = await prisma.user.findFirst({
+    where: { id },
+  });
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "user not found",
+    });
+  }
+
+  // On compare le refresh token dans le corps de la requete avec celui stocker en BD
+  const result = await bcrypt.compare(refreshToken, user.refreshToken);
+
+  if (!result) {
+    return res.status(401).json({
+      success: false,
+      messge: "Invalid refresh token",
+    });
+  }
+
+  const newAcessToken = signAccessToken(user.id);
+  const newRefreshToken = signRefreshToken(user.id);
+
+  // Stocker le nouveau refrsh token en BD
+  // Hash du refresh token
+  const hashrefresh = await bcrypt.hash(newRefreshToken, 10);
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      refreshToken: hashrefresh,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Token was successfully refresh",
+    dats: {
+      access_token: newAcessToken,
+      refreshToken: newRefreshToken,
+    },
+  });
+};
 
 export const verifyOtp = async (
   req: Request,
