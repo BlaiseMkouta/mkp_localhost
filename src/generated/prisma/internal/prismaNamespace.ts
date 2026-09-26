@@ -538,6 +538,11 @@ export const UserScalarFieldEnum = {
   phone_number: 'phone_number',
   password: 'password',
   profile_picture: 'profile_picture',
+  isVerified: 'isVerified',
+  otpSecret: 'otpSecret',
+  otpMethod: 'otpMethod',
+  otpExpiredAt: 'otpExpiredAt',
+  refreshToken: 'refreshToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -561,6 +566,14 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
 
 /**
  * Field references
@@ -578,6 +591,27 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'otpMethod'
+ */
+export type EnumotpMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'otpMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'otpMethod[]'
+ */
+export type ListEnumotpMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'otpMethod[]'>
     
 
 

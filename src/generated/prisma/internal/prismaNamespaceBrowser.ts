@@ -78,6 +78,11 @@ export const UserScalarFieldEnum = {
   phone_number: 'phone_number',
   password: 'password',
   profile_picture: 'profile_picture',
+  isVerified: 'isVerified',
+  otpSecret: 'otpSecret',
+  otpMethod: 'otpMethod',
+  otpExpiredAt: 'otpExpiredAt',
+  refreshToken: 'refreshToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -99,4 +104,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
