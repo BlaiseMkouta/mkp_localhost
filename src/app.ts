@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import authRoutes from "./modules/auth/auth.routes";
 import { authenticate } from "./middlewares/authentication.middleware";
+import { errorHandler, notFound } from "./middlewares/error.middleware";
 
 const app: Application = express();
 
@@ -13,5 +14,7 @@ app.use(authRoutes);
 app.use(authenticate)
 
 // app.use(shopRoutes)
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
