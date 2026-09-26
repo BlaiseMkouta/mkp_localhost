@@ -24,4 +24,14 @@ export const updateAvatar = async (
 
   // recupere le chemin du fichier
   const newAvatar = toPublicPath(file.path);
+
+  const updateduser = await prisma.user.update({
+    where: { id: user.id },
+    data: { profile_picture: newAvatar },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Profile picture updated successfully",
+  });
 };

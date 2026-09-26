@@ -18,7 +18,7 @@ const AVATAR_MAX_SIZE = 1024 * 1024 * 5; // 5 Mo
 // creer les dossier
 fs.mkdirSync(AVATAR_DIR, { recursive: true });
 
-export const uploadAvatart = multer({
+export const uploadAvatar = multer({
   storage: multer.diskStorage({
     destination: AVATAR_DIR,
     // Renomme le fichier car on ne doit jamais faire confiance a son nom

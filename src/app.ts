@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import authRoutes from "./modules/auth/auth.routes";
 import { authenticate } from "./middlewares/authentication.middleware";
 import { errorHandler, notFound } from "./middlewares/error.middleware";
+import userRoute from "./modules/user/user.routes";
 
 const app: Application = express();
 
@@ -11,7 +12,8 @@ app.use(express.json());
 app.use(authRoutes);
 
 // le middleware auth se place au dessus des routes
-app.use(authenticate)
+app.use(authenticate);
+app.use(userRoute);
 
 // app.use(shopRoutes)
 app.use(notFound);
