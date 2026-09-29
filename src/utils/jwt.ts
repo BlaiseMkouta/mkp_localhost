@@ -1,8 +1,8 @@
-import dotenv from "dotenv";
+import "dotenv/config";
+import crypto from "crypto";
 import { JwtPayload, SignOptions } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
 
-dotenv.config();
 
 const getEnv = (key: string) => {
   const value = process.env[key];
@@ -20,6 +20,7 @@ export interface TokenPayload extends JwtPayload {
 const signToken = (secret: string, userId: string, expireIn: string) => {
   return jwt.sign({}, secret, {
     subject: userId,
+    jwtid: crypto.randomUUID(), // rend chaque token unique (rotation du refresh token)
     expiresIn: expireIn as SignOptions["expiresIn"],
   });
 };
@@ -45,4 +46,14 @@ export const signRefreshToken = (userId: string) => {
 
 export const verifyAccessToken = (token: string) => {
   return VerifyToken(token, getEnv("ACCESS_TOKEN_JWT_KEY"));
+};
+
+export const verifyRefreshToken = (token: string) => {
+  return VerifyToken(token, getEnv("REFRESH_TOKEN_JWT_KEY"));
+};
+
+// bcrypt ne prend en compte que les 72 premiers octets : un JWT est plus long,
+// on utilise donc un hash SHA-256 pour stocker le refresh token
+export const hashToken = (token: string) => {
+  return crypto.createHash("sha256").update(token).digest("hex");
 };

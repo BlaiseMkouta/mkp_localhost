@@ -8,7 +8,8 @@ export const updateAvatar = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const id = req.params;
+  // id de l'utilisateur connecte, fourni par le middleware authenticate
+  const id = req.userId;
   const file = req.file;
 
   if (!file) {
@@ -25,7 +26,7 @@ export const updateAvatar = async (
   // recupere le chemin du fichier
   const newAvatar = toPublicPath(file.path);
 
-  const updateduser = await prisma.user.update({
+  await prisma.user.update({
     where: { id: user.id },
     data: { profile_picture: newAvatar },
   });
@@ -33,5 +34,6 @@ export const updateAvatar = async (
   return res.status(200).json({
     success: true,
     message: "Profile picture updated successfully",
+    data: { profile_picture: newAvatar },
   });
 };

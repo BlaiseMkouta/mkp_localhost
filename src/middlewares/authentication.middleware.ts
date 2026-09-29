@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { success } from "zod";
 import { verifyAccessToken } from "../utils/jwt";
 
 export const authenticate = (
@@ -7,26 +6,27 @@ export const authenticate = (
   res: Response,
   next: NextFunction,
 ) => {
-  const header = req.headers.Authorization as string;
+  // Node met tous les noms de headers en minuscules
+  const header = req.headers.authorization;
 
-  if (!header.startsWith("Bearer")) {
+  if (!header?.startsWith("Bearer ")) {
     return res.status(401).json({
       success: false,
-      message: "Authencation is required",
+      message: "Authentication is required",
     });
   }
 
-  const token = header.slice("Bearer".length).trim();
+  const token = header.slice("Bearer ".length).trim();
 
   try {
     const { sub } = verifyAccessToken(token);
-    next();
+    req.userId = sub;
   } catch (error) {
     return res.status(401).json({
       success: false,
       message: "Invalid token",
     });
   }
+
+  next();
 };
-
-

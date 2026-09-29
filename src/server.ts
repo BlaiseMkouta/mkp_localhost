@@ -1,9 +1,6 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import prisma from './config/prisma'
 import app from './app'
-
-dotenv.config()
-
 
 const PORT = process.env.PORT ?? 3001
 
@@ -13,12 +10,12 @@ const start = async () => {
         console.log('Connection a la BD reussie')
 
         app.listen(PORT, ()=> {
-            console.log(`Our application is listening on http://localhost:${3000}`)
+            console.log(`Our application is listening on http://localhost:${PORT}`)
         })
-        
+
     } catch (error) {
-        console.error('starting failed')
-        
+        console.error('starting failed', error)
+        process.exit(1)
     }
 }
 

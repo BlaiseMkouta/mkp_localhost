@@ -1,11 +1,9 @@
-import dotenv from "dotenv";
-import { generate, generateSecret, verify } from "otplib";
-dotenv.config();
+import "dotenv/config";
+import { generate } from "otplib";
 
-const OtpPeriod = process.env.OTP_PERIOD ?? 600;
-console.log("otp period", OtpPeriod);
+// duree de validite de l'OTP en secondes
+export const OTP_PERIOD = Number(process.env.OTP_PERIOD ?? 600);
 
 export const generateOpt = (secret: string): Promise<string> => {
-  return generate({ secret, period: 600 });
+  return generate({ secret, period: OTP_PERIOD });
 };
-

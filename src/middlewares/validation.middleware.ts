@@ -8,15 +8,13 @@ export function validate(schema: ZodType, source: Source = "body") {
     const datas = req[source];
     const result = schema.safeParse(datas);
 
-    // fuction issue (isSecureContext)
-    const error = result.error?.issues.map(function (issue) {
-      return {
-        code: issue.path.join(""),
-        message: issue.message,
-      };
-    });
-
     if (!result.success) {
+      const error = result.error.issues.map(function (issue) {
+        return {
+          path: issue.path.join("."),
+          message: issue.message,
+        };
+      });
 
       return res.status(400).json({
         success: false,
@@ -24,6 +22,9 @@ export function validate(schema: ZodType, source: Source = "body") {
         error: error,
       });
     }
+
+    // on remplace les donnees par la version validee (champs inconnus retires)
+    if (source === "body") req.body = result.data;
 
     next();
   }
