@@ -18,3 +18,5 @@ Thumbs.db
 # Éditeurs
 .vscode/
 .idea/
+# Fichiers uploadés
+uploads/
