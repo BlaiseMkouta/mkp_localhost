@@ -38,7 +38,7 @@ model Shop {
     description     String
     profile_picture String?
     cover_picture   String?
-    owner           String
+    owner           String   @unique
     createsAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
 
