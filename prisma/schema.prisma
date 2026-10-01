@@ -14,7 +14,7 @@ enum otpMethod {
 }
 
 model User {
-    id              String     @id @default(uuid())
+    id              String     @id @unique @default(uuid())
     first_name      String
     last_name       String
     email           String     @unique
@@ -29,4 +29,109 @@ model User {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    shops     Shop[]
+}
+
+model Shop {
+    id              String   @id @default(uuid())
+    name            String   @unique
+    description     String
+    profile_picture String?
+    cover_picture   String?
+    owner           String
+    createsAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+
+    shopServices ShopServices[]
+    user         User           @relation(fields: [owner], references: [id])
+    products     Product[]
+}
+
+model ShopServices {
+    id        String   @id @unique @default(uuid())
+    name      String
+    shopId    String
+    createsAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    shop Shop @relation(fields: [shopId], references: [id])
+}
+
+enum ProductStatus {
+    DRAFT
+    UNPUBLISHED
+    PUBLISHED
+    OUT_OF_STOCK
+}
+
+model Product {
+    id               String        @id @unique @default(uuid())
+    name             String
+    short_decription String
+    description      String
+    promo_price      Float
+    price            Float
+    quantity         Int
+    min_quantity     Int
+    thumnail         String?
+    first_image      String?
+    second_image     String?
+    third_image      String?
+    shopId           String
+    status           ProductStatus @default(DRAFT)
+    createdAt        DateTime      @default(now())
+    updatedAt        DateTime      @updatedAt
+
+    // Relations
+    shop         Shop          @relation(fields: [shopId], references: [id])
+    cartProducts CartProduct[]
+}
+
+model Cart {
+    id           String        @id @unique @default(uuid())
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+    cartProducts CartProduct[]
+    orders       Order[]
+}
+
+model CartProduct {
+    id        String   @id @unique @default(uuid())
+    cartId    String
+    productId String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    cart    Cart    @relation(fields: [cartId], references: [id])
+    product Product @relation(fields: [productId], references: [id])
+}
+
+model client {
+    id           String  @id @unique @default(uuid())
+    name         String
+    email        String  @unique
+    phone_number String  @unique
+    country      String?
+    town         String?
+    adress       String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    orders    Order[]
+}
+
+model Order {
+    id            String @id @unique @default(uuid())
+    clientId      String
+    cartId        String
+    delivery_info Json
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    client client @relation(fields: [clientId], references: [id])
+    cart   Cart   @relation(fields: [cartId], references: [id])
 }

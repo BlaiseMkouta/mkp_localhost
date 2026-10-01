@@ -16,3 +16,13 @@ export const otpMethod = {
 } as const
 
 export type otpMethod = (typeof otpMethod)[keyof typeof otpMethod]
+
+
+export const ProductStatus = {
+  DRAFT: 'DRAFT',
+  UNPUBLISHED: 'UNPUBLISHED',
+  PUBLISHED: 'PUBLISHED',
+  OUT_OF_STOCK: 'OUT_OF_STOCK'
+} as const
+
+export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
