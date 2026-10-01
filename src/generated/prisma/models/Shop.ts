@@ -228,19 +228,19 @@ export type ShopOrderByWithRelationInput = {
 export type ShopWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   name?: string
+  owner?: string
   AND?: Prisma.ShopWhereInput | Prisma.ShopWhereInput[]
   OR?: Prisma.ShopWhereInput[]
   NOT?: Prisma.ShopWhereInput | Prisma.ShopWhereInput[]
   description?: Prisma.StringFilter<"Shop"> | string
   profile_picture?: Prisma.StringNullableFilter<"Shop"> | string | null
   cover_picture?: Prisma.StringNullableFilter<"Shop"> | string | null
-  owner?: Prisma.StringFilter<"Shop"> | string
   createsAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   shopServices?: Prisma.ShopServicesListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   products?: Prisma.ProductListRelationFilter
-}, "id" | "name">
+}, "id" | "name" | "owner">
 
 export type ShopOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

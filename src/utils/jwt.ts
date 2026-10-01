@@ -37,7 +37,7 @@ const VerifyToken = (token: string, secret: string) => {
 };
 
 export const signAccessToken = (userId: string) => {
-  return signToken(getEnv("ACCESS_TOKEN_JWT_KEY"), userId, "15m");
+  return signToken(getEnv("ACCESS_TOKEN_JWT_KEY"), userId, "1d");
 };
 
 export const signRefreshToken = (userId: string) => {

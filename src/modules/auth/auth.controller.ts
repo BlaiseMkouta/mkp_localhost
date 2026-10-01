@@ -107,11 +107,16 @@ export const login = async (
     });
   }
 
+  if (!existingUser.isVerified) {
+
+    return res.status(400).json({
+      success: false,
+      message: "user is not verified",
+    });
+  }
+
   // Verifier le mot de passe
-  const isPasswordValid = await bcrypt.compare(
-    password,
-    existingUser.password,
-  );
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
   if (!isPasswordValid) {
     return res.status(401).json({
