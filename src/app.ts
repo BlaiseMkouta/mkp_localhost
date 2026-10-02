@@ -2,9 +2,9 @@ import express, { Application } from "express";
 import authRoutes from "./modules/auth/auth.routes";
 import { errorHandler, notFound } from "./middlewares/error.middleware";
 import userRoute from "./modules/user/user.routes";
-import { UPLOADS_DIR } from "./config/multer/multer.config";
 import shopRoute from "./modules/shop/shop.routes";
 import { authenticate } from "./middlewares/authentication.middleware";
+import { UPLOADS_DIR } from "./config/multer/multer.config";
 
 const app: Application = express();
 

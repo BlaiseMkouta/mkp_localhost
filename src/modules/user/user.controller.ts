@@ -3,6 +3,7 @@ import { AppError } from "../../utils/errors.util";
 import prisma from "../../config/prisma";
 import { toPublicPath } from "../../config/multer/multer.config";
 
+
 export const updateAvatar = async (
   req: Request,
   res: Response,

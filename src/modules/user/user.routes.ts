@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploadAvatar } from "../../config/multer/multer.config";
+import { uploadAvatar } from "../../config/multer/user.multer";
 import { authenticate } from "../../middlewares/authentication.middleware";
 import { updateAvatar } from "./user.controller";
 
