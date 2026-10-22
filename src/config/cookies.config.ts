@@ -5,8 +5,8 @@ const isProd = process.env.NODE_ENV === "production";
 // En local (http), secure doit etre false et sameSite "lax" (front et back sur localhost)
 const cookiesBaseOptions: CookieOptions = {
   httpOnly: true,
-  secure: isProd,
-  sameSite: isProd ? "none" : "lax",
+  secure: true,
+  sameSite: "none",
 };
 
 export const accessCookiesOptions: CookieOptions = {
