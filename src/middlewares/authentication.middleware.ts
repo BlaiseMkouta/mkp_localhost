@@ -9,14 +9,19 @@ export const authenticate = (
   // Node met tous les noms de headers en minuscules
   const header = req.headers.authorization;
 
-  if (!header?.startsWith("Bearer ")) {
+  // On lit d'abord le cookie httpOnly, sinon le header Bearer (ex: Postman)
+  const token: string | undefined =
+    req.cookies?.access_token ??
+    (header?.startsWith("Bearer ")
+      ? header.slice("Bearer ".length).trim()
+      : undefined);
+
+  if (!token) {
     return res.status(401).json({
       success: false,
       message: "Authentication is required",
     });
   }
-
-  const token = header.slice("Bearer ".length).trim();
 
   try {
     const { sub } = verifyAccessToken(token);

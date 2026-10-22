@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import prisma from "../../config/prisma";
-import { AppError } from "../../utils/errors.util";
-import { success } from "zod";
 
 export const createShop = async (
   req: Request,

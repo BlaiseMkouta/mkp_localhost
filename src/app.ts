@@ -15,7 +15,8 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "*",
+    // origin "*" est interdit avec credentials: il faut l'URL exacte du front
+    origin: process.env.CLIENT_URL ?? "http://localhost:5173",
     credentials: true, // Permettre de de lire les cookies
   }),
 );

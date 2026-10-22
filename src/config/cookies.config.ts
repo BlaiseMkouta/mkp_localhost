@@ -1,17 +1,22 @@
-const cookiesBaseOptions = {
+import { CookieOptions } from "express";
+
+const isProd = process.env.NODE_ENV === "production";
+
+// En local (http), secure doit etre false et sameSite "lax" (front et back sur localhost)
+const cookiesBaseOptions: CookieOptions = {
   httpOnly: true,
-  secure: true,
-  sameSite: "none",
+  secure: isProd,
+  sameSite: isProd ? "none" : "lax",
 };
 
-export const accessCookiesOptions = {
+export const accessCookiesOptions: CookieOptions = {
   ...cookiesBaseOptions,
   path: "/",
-  maxAge: 24 * 60 * 60 * 1000,
+  maxAge: 24 * 60 * 60 * 1000, // 24h
 };
 
-export const refreshCookiesOptions = {
+export const refreshCookiesOptions: CookieOptions = {
   ...cookiesBaseOptions,
   path: "/",
-  maxAge: 7 * 24 * 24 * 1000,
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
 };

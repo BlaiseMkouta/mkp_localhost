@@ -14,7 +14,10 @@ import {
 import { registerSchema } from "./schemas/register.schema";
 import { loginSchema } from "./schemas/login.schema";
 import { refreshTokenSchema } from "./schemas/refresh-token.schema";
-import { refreshCookiesOptions } from "../../config/cookies.config";
+import {
+  accessCookiesOptions,
+  refreshCookiesOptions,
+} from "../../config/cookies.config";
 
 export const register = async (
   req: Request,
@@ -134,17 +137,8 @@ export const login = async (
     data: { refreshToken: hashToken(newRefreshToken) },
   });
 
-  res.cookie("access_token", accessToken, {
-    sameSite: "none",
-    secure: true,
-    maxAge: 24 * 24 * 1000,
-  });
-
-  res.cookie("refresh_token", refreshToken, {
-    sameSite: "none",
-    secure: true,
-    maxAge: 7 * 24 * 24 * 1000,
-  });
+  res.cookie("access_token", accessToken, accessCookiesOptions);
+  res.cookie("refresh_token", newRefreshToken, refreshCookiesOptions);
 
   return res.status(200).json({
     success: true,
@@ -165,7 +159,18 @@ export const refreshToken = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { refreshToken } = req.body as z.infer<typeof refreshTokenSchema>;
+  // Le refresh token vient du cookie httpOnly, sinon du body (ex: Postman)
+  const parsedBody = refreshTokenSchema.safeParse(req.body);
+  const refreshToken: string | undefined =
+    req.cookies?.refresh_token ??
+    (parsedBody.success ? parsedBody.data.refreshToken : undefined);
+
+  if (!refreshToken) {
+    return res.status(401).json({
+      success: false,
+      message: "Refresh token is required",
+    });
+  }
 
   // Verifie la signature et l'expiration du refresh token, puis recupere l'id
   let userId: string;
@@ -201,6 +206,9 @@ export const refreshToken = async (
       refreshToken: hashToken(newRefreshToken),
     },
   });
+
+  res.cookie("access_token", newAccessToken, accessCookiesOptions);
+  res.cookie("refresh_token", newRefreshToken, refreshCookiesOptions);
 
   return res.status(200).json({
     success: true,
