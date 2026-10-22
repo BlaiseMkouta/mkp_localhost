@@ -14,6 +14,7 @@ import {
 import { registerSchema } from "./schemas/register.schema";
 import { loginSchema } from "./schemas/login.schema";
 import { refreshTokenSchema } from "./schemas/refresh-token.schema";
+import { refreshCookiesOptions } from "../../config/cookies.config";
 
 export const register = async (
   req: Request,
@@ -108,7 +109,6 @@ export const login = async (
   }
 
   if (!existingUser.isVerified) {
-
     return res.status(400).json({
       success: false,
       message: "user is not verified",
@@ -134,12 +134,22 @@ export const login = async (
     data: { refreshToken: hashToken(newRefreshToken) },
   });
 
+  res.cookie("access_token", accessToken, {
+    sameSite: "none",
+    secure: true,
+    maxAge: 24 * 24 * 1000,
+  });
+
+  res.cookie("refresh_token", refreshToken, {
+    sameSite: "none",
+    secure: true,
+    maxAge: 7 * 24 * 24 * 1000,
+  });
+
   return res.status(200).json({
     success: true,
     message: "login successfull",
     data: {
-      access_token: accessToken,
-      refresh_token: newRefreshToken,
       user: {
         id: existingUser.id,
         first_name: existingUser.first_name,
