@@ -2,7 +2,7 @@ import { Resend } from "resend";
 import { OTP_PERIOD } from "../../utils/otp";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const MAIL_FROM = "Localhost <onboarding@resend.dev>";
+const MAIL_FROM = "Localhost <resend@leleblaise.com>";
 const APP_NAME = "Localhost";
 const BRAND_COLOR = "#4F46E5";
 
