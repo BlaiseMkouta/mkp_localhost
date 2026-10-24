@@ -12,7 +12,7 @@ const cookiesBaseOptions: CookieOptions = {
 export const accessCookiesOptions: CookieOptions = {
   ...cookiesBaseOptions,
   path: "/",
-  maxAge: 24 * 60 * 60 * 1000, // 24h
+  maxAge: 2460 * 60, // 24h
 };
 
 export const refreshCookiesOptions: CookieOptions = {

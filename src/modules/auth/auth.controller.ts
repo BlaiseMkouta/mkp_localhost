@@ -18,6 +18,7 @@ import {
   accessCookiesOptions,
   refreshCookiesOptions,
 } from "../../config/cookies.config";
+import { sendOtpMail } from "../../providers/resend/resent.provider";
 
 export const register = async (
   req: Request,
@@ -76,6 +77,8 @@ export const register = async (
         otpExpiredAt: otpExpiredAt,
       },
     });
+
+    await sendOtpMail(email, otp, `${first_name} ${last_name}`);
 
     return res.status(201).json({
       success: true,
@@ -213,10 +216,6 @@ export const refreshToken = async (
   return res.status(200).json({
     success: true,
     message: "Token was successfully refresh",
-    data: {
-      access_token: newAccessToken,
-      refresh_token: newRefreshToken,
-    },
   });
 };
 
