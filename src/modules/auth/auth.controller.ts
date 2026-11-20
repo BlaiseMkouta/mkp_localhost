@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import z from "zod";
+import z, { date, success } from "zod";
 import prisma from "../../config/prisma";
 import { generateSecret } from "otplib";
 import { generateOpt, OTP_PERIOD } from "../../utils/otp";
@@ -224,3 +224,119 @@ export const verifyOtp = async (
   res: Response,
   next: NextFunction,
 ) => {};
+
+export const forgotPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const email = req.body;
+
+  // Verifier l'existance du user
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  });
+
+  if (!existingUser) {
+    return res.status(404).json({
+      success: false,
+      message: "user not found",
+    });
+  }
+
+  // generer l'otp
+  const secret = generateSecret();
+
+  const otp = await generateOpt(secret);
+
+  const otpHash = await bcrypt.hash(otp, 10);
+
+  await prisma.user.update({
+    where: { email },
+    data: {
+      otpSecret: otpHash,
+      otpMethod: otpMethod.RESET_PASSWORD,
+      otpExpiredAt: String(new Date().getTime() + OTP_PERIOD * 1000),
+    },
+  });
+
+  // Envoie du mail
+  await sendOtpMail(email, otp, existingUser.first_name);
+
+  return res.status(200).json({
+    success: true,
+    message: "operation successuful",
+  });
+};
+
+export const verifyresetOtp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { email, otp } = req.body;
+
+  // Verifier l'existance du user
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  });
+
+  if (!existingUser) {
+    return res.status(404).json({
+      success: false,
+      message: "user not found",
+    });
+  }
+
+  if (
+    !existingUser.otpSecret ||
+    !existingUser.otpExpiredAt ||
+    !existingUser.otpMethod
+  ) {
+    return res.status(400).json({
+      success: false,
+      message: "request not permitted",
+    });
+  }
+
+  const otpVerify = await bcrypt.compare(otp, existingUser.otpSecret);
+
+  if (
+    !otpVerify ||
+    existingUser.otpExpiredAt < String(Date.now()) ||
+    existingUser.otpMethod !== otpMethod.RESET_PASSWORD
+  ) {
+    return res.status(400).json({
+      success: false,
+      message: "invalid or expired token",
+    });
+  }
+
+  // mettre a jour le user
+  await prisma.user.update({
+    where: { email },
+    data: {
+      otpExpiredAt: null,
+      otpMethod: null,
+      otpSecret: null,
+      resetPasswordEnable: true,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Reset otp Verified successfully",
+  });
+};
+
+export const resetPassword = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  
+};

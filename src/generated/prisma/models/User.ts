@@ -37,6 +37,7 @@ export type UserMinAggregateOutputType = {
   otpMethod: $Enums.otpMethod | null
   otpExpiredAt: string | null
   refreshToken: string | null
+  resetPasswordEnable: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +55,7 @@ export type UserMaxAggregateOutputType = {
   otpMethod: $Enums.otpMethod | null
   otpExpiredAt: string | null
   refreshToken: string | null
+  resetPasswordEnable: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -71,6 +73,7 @@ export type UserCountAggregateOutputType = {
   otpMethod: number
   otpExpiredAt: number
   refreshToken: number
+  resetPasswordEnable: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -90,6 +93,7 @@ export type UserMinAggregateInputType = {
   otpMethod?: true
   otpExpiredAt?: true
   refreshToken?: true
+  resetPasswordEnable?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -107,6 +111,7 @@ export type UserMaxAggregateInputType = {
   otpMethod?: true
   otpExpiredAt?: true
   refreshToken?: true
+  resetPasswordEnable?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +129,7 @@ export type UserCountAggregateInputType = {
   otpMethod?: true
   otpExpiredAt?: true
   refreshToken?: true
+  resetPasswordEnable?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -214,6 +220,7 @@ export type UserGroupByOutputType = {
   otpMethod: $Enums.otpMethod | null
   otpExpiredAt: string | null
   refreshToken: string | null
+  resetPasswordEnable: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -252,6 +259,7 @@ export type UserWhereInput = {
   otpMethod?: Prisma.EnumotpMethodNullableFilter<"User"> | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  resetPasswordEnable?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   shops?: Prisma.ShopListRelationFilter
@@ -270,6 +278,7 @@ export type UserOrderByWithRelationInput = {
   otpMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   otpExpiredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  resetPasswordEnable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   shops?: Prisma.ShopOrderByRelationAggregateInput
@@ -291,6 +300,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   otpMethod?: Prisma.EnumotpMethodNullableFilter<"User"> | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.StringNullableFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  resetPasswordEnable?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   shops?: Prisma.ShopListRelationFilter
@@ -309,6 +319,7 @@ export type UserOrderByWithAggregationInput = {
   otpMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   otpExpiredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  resetPasswordEnable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -332,6 +343,7 @@ export type UserScalarWhereWithAggregatesInput = {
   otpMethod?: Prisma.EnumotpMethodNullableWithAggregatesFilter<"User"> | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  resetPasswordEnable?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -349,6 +361,7 @@ export type UserCreateInput = {
   otpMethod?: $Enums.otpMethod | null
   otpExpiredAt?: string | null
   refreshToken?: string | null
+  resetPasswordEnable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   shops?: Prisma.ShopCreateNestedManyWithoutUserInput
@@ -367,6 +380,7 @@ export type UserUncheckedCreateInput = {
   otpMethod?: $Enums.otpMethod | null
   otpExpiredAt?: string | null
   refreshToken?: string | null
+  resetPasswordEnable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   shops?: Prisma.ShopUncheckedCreateNestedManyWithoutUserInput
@@ -385,6 +399,7 @@ export type UserUpdateInput = {
   otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shops?: Prisma.ShopUpdateManyWithoutUserNestedInput
@@ -403,6 +418,7 @@ export type UserUncheckedUpdateInput = {
   otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shops?: Prisma.ShopUncheckedUpdateManyWithoutUserNestedInput
@@ -421,6 +437,7 @@ export type UserCreateManyInput = {
   otpMethod?: $Enums.otpMethod | null
   otpExpiredAt?: string | null
   refreshToken?: string | null
+  resetPasswordEnable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -438,6 +455,7 @@ export type UserUpdateManyMutationInput = {
   otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -455,6 +473,7 @@ export type UserUncheckedUpdateManyInput = {
   otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -472,6 +491,7 @@ export type UserCountOrderByAggregateInput = {
   otpMethod?: Prisma.SortOrder
   otpExpiredAt?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  resetPasswordEnable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -489,6 +509,7 @@ export type UserMaxOrderByAggregateInput = {
   otpMethod?: Prisma.SortOrder
   otpExpiredAt?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  resetPasswordEnable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -506,6 +527,7 @@ export type UserMinOrderByAggregateInput = {
   otpMethod?: Prisma.SortOrder
   otpExpiredAt?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrder
+  resetPasswordEnable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -562,6 +584,7 @@ export type UserCreateWithoutShopsInput = {
   otpMethod?: $Enums.otpMethod | null
   otpExpiredAt?: string | null
   refreshToken?: string | null
+  resetPasswordEnable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -579,6 +602,7 @@ export type UserUncheckedCreateWithoutShopsInput = {
   otpMethod?: $Enums.otpMethod | null
   otpExpiredAt?: string | null
   refreshToken?: string | null
+  resetPasswordEnable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -612,6 +636,7 @@ export type UserUpdateWithoutShopsInput = {
   otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -629,6 +654,7 @@ export type UserUncheckedUpdateWithoutShopsInput = {
   otpMethod?: Prisma.NullableEnumotpMethodFieldUpdateOperationsInput | $Enums.otpMethod | null
   otpExpiredAt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -677,6 +703,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   otpMethod?: boolean
   otpExpiredAt?: boolean
   refreshToken?: boolean
+  resetPasswordEnable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   shops?: boolean | Prisma.User$shopsArgs<ExtArgs>
@@ -696,6 +723,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   otpMethod?: boolean
   otpExpiredAt?: boolean
   refreshToken?: boolean
+  resetPasswordEnable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -713,6 +741,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   otpMethod?: boolean
   otpExpiredAt?: boolean
   refreshToken?: boolean
+  resetPasswordEnable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -730,11 +759,12 @@ export type UserSelectScalar = {
   otpMethod?: boolean
   otpExpiredAt?: boolean
   refreshToken?: boolean
+  resetPasswordEnable?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "email" | "phone_number" | "password" | "profile_picture" | "isVerified" | "otpSecret" | "otpMethod" | "otpExpiredAt" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "email" | "phone_number" | "password" | "profile_picture" | "isVerified" | "otpSecret" | "otpMethod" | "otpExpiredAt" | "refreshToken" | "resetPasswordEnable" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shops?: boolean | Prisma.User$shopsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -760,6 +790,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     otpMethod: $Enums.otpMethod | null
     otpExpiredAt: string | null
     refreshToken: string | null
+    resetPasswordEnable: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1198,6 +1229,7 @@ export interface UserFieldRefs {
   readonly otpMethod: Prisma.FieldRef<"User", 'otpMethod'>
   readonly otpExpiredAt: Prisma.FieldRef<"User", 'String'>
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
+  readonly resetPasswordEnable: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
