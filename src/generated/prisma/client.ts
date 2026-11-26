@@ -79,3 +79,8 @@ export type client = Prisma.clientModel
  * 
  */
 export type Order = Prisma.OrderModel
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = Prisma.InvoiceModel

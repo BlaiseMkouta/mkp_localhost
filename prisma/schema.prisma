@@ -46,6 +46,7 @@ model Shop {
     shopServices ShopServices[]
     user         User           @relation(fields: [owner], references: [id])
     products     Product[]
+    invoices     Invoice[]
 }
 
 model ShopServices {
@@ -98,11 +99,13 @@ model Cart {
 }
 
 model CartProduct {
-    id        String   @id @unique @default(uuid())
-    cartId    String
-    productId String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id         String   @id @unique @default(uuid())
+    cartId     String
+    productId  String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    quantity   Int      @default(1)
+    unit_price Int
 
     // Relations
     cart    Cart    @relation(fields: [cartId], references: [id])
@@ -133,6 +136,32 @@ model Order {
     updatedAt DateTime @updatedAt
 
     // Relations
-    client client @relation(fields: [clientId], references: [id])
-    cart   Cart   @relation(fields: [cartId], references: [id])
+    client   client    @relation(fields: [clientId], references: [id])
+    cart     Cart      @relation(fields: [cartId], references: [id])
+    invoices Invoice[]
+}
+
+enum InvoiceStatus {
+    PROCESSING
+    SENT
+    FAILED
+}
+
+model Invoice {
+    id        String        @id @default(uuid())
+    number    String        @unique
+    orderId   String
+    shopId    String
+    total_ht  Int
+    tva       Int
+    total_ttc Int
+    status    InvoiceStatus
+    pdfPath   String?
+    sentAt    DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    order Order @relation(fields: [orderId], references: [id])
+    shop  Shop  @relation(fields: [shopId], references: [id])
 }

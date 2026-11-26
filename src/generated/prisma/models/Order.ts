@@ -188,6 +188,7 @@ export type OrderWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.clientWhereInput>
   cart?: Prisma.XOR<Prisma.CartScalarRelationFilter, Prisma.CartWhereInput>
+  invoices?: Prisma.InvoiceListRelationFilter
 }
 
 export type OrderOrderByWithRelationInput = {
@@ -199,6 +200,7 @@ export type OrderOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   client?: Prisma.clientOrderByWithRelationInput
   cart?: Prisma.CartOrderByWithRelationInput
+  invoices?: Prisma.InvoiceOrderByRelationAggregateInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -213,6 +215,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.clientWhereInput>
   cart?: Prisma.XOR<Prisma.CartScalarRelationFilter, Prisma.CartWhereInput>
+  invoices?: Prisma.InvoiceListRelationFilter
 }, "id" | "id">
 
 export type OrderOrderByWithAggregationInput = {
@@ -246,6 +249,7 @@ export type OrderCreateInput = {
   updatedAt?: Date | string
   client: Prisma.clientCreateNestedOneWithoutOrdersInput
   cart: Prisma.CartCreateNestedOneWithoutOrdersInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateInput = {
@@ -255,6 +259,7 @@ export type OrderUncheckedCreateInput = {
   delivery_info: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUpdateInput = {
@@ -264,6 +269,7 @@ export type OrderUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.clientUpdateOneRequiredWithoutOrdersNestedInput
   cart?: Prisma.CartUpdateOneRequiredWithoutOrdersNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
@@ -273,6 +279,7 @@ export type OrderUncheckedUpdateInput = {
   delivery_info?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateManyInput = {
@@ -333,6 +340,11 @@ export type OrderMinOrderByAggregateInput = {
   cartId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type OrderScalarRelationFilter = {
+  is?: Prisma.OrderWhereInput
+  isNot?: Prisma.OrderWhereInput
 }
 
 export type OrderCreateNestedManyWithoutCartInput = {
@@ -419,12 +431,27 @@ export type OrderUncheckedUpdateManyWithoutClientNestedInput = {
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
 }
 
+export type OrderCreateNestedOneWithoutInvoicesInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutInvoicesInput, Prisma.OrderUncheckedCreateWithoutInvoicesInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutInvoicesInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneRequiredWithoutInvoicesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutInvoicesInput, Prisma.OrderUncheckedCreateWithoutInvoicesInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutInvoicesInput
+  upsert?: Prisma.OrderUpsertWithoutInvoicesInput
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutInvoicesInput, Prisma.OrderUpdateWithoutInvoicesInput>, Prisma.OrderUncheckedUpdateWithoutInvoicesInput>
+}
+
 export type OrderCreateWithoutCartInput = {
   id?: string
   delivery_info: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   client: Prisma.clientCreateNestedOneWithoutOrdersInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutCartInput = {
@@ -433,6 +460,7 @@ export type OrderUncheckedCreateWithoutCartInput = {
   delivery_info: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutCartInput = {
@@ -479,6 +507,7 @@ export type OrderCreateWithoutClientInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   cart: Prisma.CartCreateNestedOneWithoutOrdersInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutClientInput = {
@@ -487,6 +516,7 @@ export type OrderUncheckedCreateWithoutClientInput = {
   delivery_info: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutClientInput = {
@@ -515,6 +545,58 @@ export type OrderUpdateManyWithWhereWithoutClientInput = {
   data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutClientInput>
 }
 
+export type OrderCreateWithoutInvoicesInput = {
+  id?: string
+  delivery_info: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client: Prisma.clientCreateNestedOneWithoutOrdersInput
+  cart: Prisma.CartCreateNestedOneWithoutOrdersInput
+}
+
+export type OrderUncheckedCreateWithoutInvoicesInput = {
+  id?: string
+  clientId: string
+  cartId: string
+  delivery_info: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderCreateOrConnectWithoutInvoicesInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutInvoicesInput, Prisma.OrderUncheckedCreateWithoutInvoicesInput>
+}
+
+export type OrderUpsertWithoutInvoicesInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutInvoicesInput, Prisma.OrderUncheckedUpdateWithoutInvoicesInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutInvoicesInput, Prisma.OrderUncheckedCreateWithoutInvoicesInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutInvoicesInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutInvoicesInput, Prisma.OrderUncheckedUpdateWithoutInvoicesInput>
+}
+
+export type OrderUpdateWithoutInvoicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  delivery_info?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.clientUpdateOneRequiredWithoutOrdersNestedInput
+  cart?: Prisma.CartUpdateOneRequiredWithoutOrdersNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutInvoicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  delivery_info?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type OrderCreateManyCartInput = {
   id?: string
   clientId: string
@@ -529,6 +611,7 @@ export type OrderUpdateWithoutCartInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.clientUpdateOneRequiredWithoutOrdersNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutCartInput = {
@@ -537,6 +620,7 @@ export type OrderUncheckedUpdateWithoutCartInput = {
   delivery_info?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutCartInput = {
@@ -561,6 +645,7 @@ export type OrderUpdateWithoutClientInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CartUpdateOneRequiredWithoutOrdersNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutClientInput = {
@@ -569,6 +654,7 @@ export type OrderUncheckedUpdateWithoutClientInput = {
   delivery_info?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutClientInput = {
@@ -580,6 +666,35 @@ export type OrderUncheckedUpdateManyWithoutClientInput = {
 }
 
 
+/**
+ * Count Type OrderCountOutputType
+ */
+
+export type OrderCountOutputType = {
+  invoices: number
+}
+
+export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  invoices?: boolean | OrderCountOutputTypeCountInvoicesArgs
+}
+
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderCountOutputType
+   */
+  select?: Prisma.OrderCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountInvoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InvoiceWhereInput
+}
+
 
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -590,6 +705,8 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   client?: boolean | Prisma.clientDefaultArgs<ExtArgs>
   cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  invoices?: boolean | Prisma.Order$invoicesArgs<ExtArgs>
+  _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -627,6 +744,8 @@ export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.clientDefaultArgs<ExtArgs>
   cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  invoices?: boolean | Prisma.Order$invoicesArgs<ExtArgs>
+  _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.clientDefaultArgs<ExtArgs>
@@ -642,6 +761,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     client: Prisma.$clientPayload<ExtArgs>
     cart: Prisma.$CartPayload<ExtArgs>
+    invoices: Prisma.$InvoicePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1046,6 +1166,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   client<T extends Prisma.clientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.clientDefaultArgs<ExtArgs>>): Prisma.Prisma__clientClient<runtime.Types.Result.GetResult<Prisma.$clientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   cart<T extends Prisma.CartDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CartDefaultArgs<ExtArgs>>): Prisma.Prisma__CartClient<runtime.Types.Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  invoices<T extends Prisma.Order$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1479,6 +1600,30 @@ export type OrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Orders to delete.
    */
   limit?: number
+}
+
+/**
+ * Order.invoices
+ */
+export type Order$invoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Invoice
+   */
+  select?: Prisma.InvoiceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Invoice
+   */
+  omit?: Prisma.InvoiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvoiceInclude<ExtArgs> | null
+  where?: Prisma.InvoiceWhereInput
+  orderBy?: Prisma.InvoiceOrderByWithRelationInput | Prisma.InvoiceOrderByWithRelationInput[]
+  cursor?: Prisma.InvoiceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InvoiceScalarFieldEnum | Prisma.InvoiceScalarFieldEnum[]
 }
 
 /**
